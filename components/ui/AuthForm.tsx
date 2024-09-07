@@ -13,6 +13,7 @@ import { Loader2 } from 'lucide-react'
 import { authFormSchema } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { signIn, signUp } from '@/lib/actions/user.actions'
+import PlaidLink from './PlaidLink'
 
 const AuthForm = ({ type }: AuthFormProps) => {
 
@@ -40,8 +41,22 @@ const AuthForm = ({ type }: AuthFormProps) => {
         try {
             //!  Sign Up with AppWrite & create plain link token
 
+
             if(type === 'sign-up'){
-                const newUser = await signUp(data)
+                const userData = {
+                    firstName: data.firstName!,
+                    lastName: data.lastName!,
+                    email: data.email!,
+                    password: data.password!,
+                    address1: data.address1!,
+                    city: data.city!,
+                    state: data.state!,
+                    postalCode: data.postalCode!,
+                    dateOfBirth: data.dob!,
+                    ssn: data.ssn!
+                };
+
+                const newUser = await signUp(userData)
                 setUser(newUser)
             }
 
@@ -96,9 +111,9 @@ const AuthForm = ({ type }: AuthFormProps) => {
         </header>
         { user ? (
             <div className="flex flex-col gap-4">
-                {/* PlaidLink */}
+                <PlaidLink  user={user} variant="primary"/>
             </div>
-        ) : (
+        ) : ( 
             <>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -129,8 +144,8 @@ const AuthForm = ({ type }: AuthFormProps) => {
                                 <div className='flex gap-4'>
                                     <Field                       
                                         form={form}
-                                        name="address"
-                                        label="Address"
+                                        name="address1"
+                                        label="Address1"
                                         placeholder="Enter your address"       
                                     />
                                 <Field                       
@@ -213,7 +228,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
                     >{type === 'sign-in' ? 'Sign Up' : 'Sign In'}</Link>
                 </footer>
             </>
-        )}
+        )} 
     </section>
   )
 }
