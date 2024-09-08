@@ -27,6 +27,7 @@ const dwollaClient = new Client({
 export const createFundingSource = async (
   options: CreateFundingSourceOptions
 ) => {
+  
   try {
     return await dwollaClient
       .post(`customers/${options.customerId}/funding-sources`, {
@@ -107,6 +108,8 @@ export const addFundingSource = async ({
       plaidToken: processorToken,
       _links: dwollaAuthLinks,
     };
+
+    // console.log("fundingSourceOptions", fundingSourceOptions);
     return await createFundingSource(fundingSourceOptions);
   } catch (err) {
     console.error("Transfer fund failed: ", err);

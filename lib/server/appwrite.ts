@@ -2,6 +2,7 @@
 import { Client, Account, Databases, Users } from "node-appwrite";
 import { cookies } from "next/headers";
 import { parseStringify } from "../utils";
+import { getUserInfo } from "../actions/user.actions";
 
 export async function createSessionClient() {
   const client = new Client()
@@ -44,10 +45,12 @@ export async function createAdminClient() {
 export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
-    const user = await account.get();
+    const result = await account.get();
+    
+    const user = await getUserInfo({ userId: result.$id });
     return parseStringify(user)
   } catch (error) {
-    console.log('error aquiii', error)
+    console.log('error', error)
     return null;
   }
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
 
+
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 const ibmPlexSerefi = IBM_Plex_Serif({
   subsets: ['latin'],
@@ -17,11 +18,12 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default  function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body className={`${inter.variable} ${ibmPlexSerefi.variable}`}>
