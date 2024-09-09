@@ -17,6 +17,20 @@ export const metadata: Metadata = {
   description: "PrJBank is a modern banking platform for everyone.",
   icons: {
     icon: './icons/logo.svg'
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://prjbank.vercel.app',
+    title: 'PrJBank',
+    description: 'PrJBank is a modern banking platform for everyone.',
+    images: [
+      {
+        url: './icons/logo.svg',
+        width: 800,
+        height: 600,
+        alt: 'PrJBank Logo',
+      },
+    ],
   }
 };
 
