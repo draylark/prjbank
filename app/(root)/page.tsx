@@ -6,16 +6,15 @@ import { getLoggedInUser } from '@/lib/server/appwrite'
 import { getAccounts, getAccount } from '@/lib/actions/bank.actions'
 import RecentTransactions from '@/components/ui/RecentTransactions'
 
+
 const Home = async({ searchParams: { id, page } }: SearchParamProps) => {
-  
+
   const currentPage = Number(page as string) || 1;
   const loggedIn = await getLoggedInUser();
-  const accounts = await getAccounts({ userId: loggedIn.$id });
-  if(!accounts) return null;
 
+  const accounts = await getAccounts({ userId: loggedIn.$id });
   const accountsData = accounts?.data;
   const appwriteItemId = ( id as string ) || accountsData[0]?.appwriteItemId;
-
   const account = await getAccount({ appwriteItemId });
 
 
@@ -47,7 +46,7 @@ const Home = async({ searchParams: { id, page } }: SearchParamProps) => {
 
       <RightSideBar
         user={loggedIn}
-        transactions={account.transactions}
+        transactions={account?.transactions || []}
         banks={accountsData?.slice(0, 2)}
       />
 

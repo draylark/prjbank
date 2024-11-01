@@ -3,6 +3,7 @@ import SideBar from "@/components/ui/SideBar";
 import { getLoggedInUser } from "@/lib/server/appwrite";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import BaseContent from "@/components/BaseContent";
 
 export default async function RootLayout({
   children,
@@ -30,7 +31,10 @@ export default async function RootLayout({
               <MobileNav user={loggedIn}/>
             </div>
           </div>
-        {children}          
+        {/* Encapsula los children dentro de BaseContent para manejar la lógica de revalidación */}
+        <BaseContent loggedIn={loggedIn}>
+          {children}
+        </BaseContent>   
         </div>
     </main>
   )

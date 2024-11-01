@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { parseStringify } from "../utils";
 import { getUserInfo } from "../actions/user.actions";
 
+
 export async function createSessionClient() {
   const client = new Client()
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
@@ -42,12 +43,15 @@ export async function createAdminClient() {
   };
 }
 
-export async function getLoggedInUser() {
+export async function getLoggedInUser(): Promise<User | null> {
   try {
     const { account } = await createSessionClient();
     const result = await account.get();
     
     const user = await getUserInfo({ userId: result.$id });
+
+    console.log("getLoggedInUser user", user)
+
     return parseStringify(user)
   } catch (error) {
     console.log('error', error)

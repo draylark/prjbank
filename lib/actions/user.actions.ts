@@ -37,7 +37,7 @@ export const signIn = async ({ email, password }: signInProps) => {
     try {
         const { account } = await createAdminClient();
         const session = await account.createEmailPasswordSession(email, password);
-        
+
         cookies().set("appwrite-session", session.secret, {
             path: "/",
             httpOnly: true,
@@ -46,7 +46,6 @@ export const signIn = async ({ email, password }: signInProps) => {
         });
 
         const user = await getUserInfo({ userId: session.userId })
-
         return parseStringify(user)
     } catch (error) {
         console.log('error on signIn', error)
@@ -54,6 +53,7 @@ export const signIn = async ({ email, password }: signInProps) => {
 };
 
 export const signUp = async ({ password, ...userData }: SignUpParams) => {
+
     const { email, firstName, lastName } = userData
 
     let newUserAccount;
@@ -121,7 +121,7 @@ export const createLinkToken = async(user: User) => {
                 client_user_id: user.$id
             },
             client_name: `${user.firstName} ${user.lastName}`,
-            products: ['auth'] as Products[],
+            products: ['auth', 'transactions'] as Products[],
             language: 'en',
             country_codes: ['US'] as CountryCode[]
         }

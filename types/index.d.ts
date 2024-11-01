@@ -49,12 +49,29 @@ declare interface UseUserDataReturn {
   account: { data: Account, transactions: Transaction[] };
 }
 
+declare interface UseBankDataReturn {
+  fetchingData: boolean;
+  appwriteItemId: string;
+  totalBanks: number | null;
+  totalCurrentBalance: number | null;
+  accounts: Account[];
+  accountData: AccountData;
+  tokensRevalidation: boolean;
+  banksForRevalidation: BankReval[] | null;
+}
+
 declare type NewUserParams = {
   userId: string;
   email: string;
   name: string;
   password: string;
 };
+
+
+declare type AccountData = {
+  data: Account;
+  transactions: Transaction[];
+}
 
 declare type Account = {
   id: string;
@@ -98,6 +115,19 @@ declare type Bank = {
   userId: string;
   shareableId: string;
 };
+
+
+declare type BaseContentProps = {
+  loggedIn: User; // Define este tipo según tu modelo de usuario
+  children: ReactNode;
+};
+
+
+declare type BankReval = {
+  accessToken: string;
+  bankId: string;
+  id: string;
+}
 
 declare type AccountTypes =
   | "depository"
@@ -264,6 +294,11 @@ declare interface PaymentTransferFormProps {
 }
 
 // Actions
+declare interface getAccountsPropsH {
+  banks: Bank[];
+  userId: string;
+}
+
 declare interface getAccountsProps {
   userId: string;
 }

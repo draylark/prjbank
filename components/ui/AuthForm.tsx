@@ -40,8 +40,6 @@ const AuthForm = ({ type }: AuthFormProps) => {
 
         try {
             //!  Sign Up with AppWrite & create plain link token
-
-
             if(type === 'sign-up'){
                 const userData = {
                     firstName: data.firstName!,
@@ -65,7 +63,11 @@ const AuthForm = ({ type }: AuthFormProps) => {
                     email: data.email,
                     password: data.password
                 })
-                console.log('res', response)
+
+
+                
+
+
                 if(response) router.push('/')
             }               
         } catch (error) {
