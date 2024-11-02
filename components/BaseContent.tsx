@@ -1,31 +1,39 @@
-'use client'
+"use client"
+
 import React, { useState, useEffect } from 'react';
 import { getAccountsH, getBanksForRevalidation } from '@/lib/actions/bank.actions';
 import { getBanks } from '@/lib/actions/user.actions';
 import RevalidationDialog from './ui/RevalidationDialog';
 import HeaderBox from '@/components/ui/HeaderBox'
 import Loading from '@/app/(root)/loading';
+import HeaderBoxError from './ui/HeaderBoxError';
 
 const BaseContent = ({ loggedIn, children }: BaseContentProps) => {
     const [banksForRevalidation, setBanksForRevalidation] = useState<BankReval[] | null>(null);
     const [tokensRevalidation, setTokensRevalidation] = useState(false);
     const [fetchingData, setFetchingData] = useState(true);
+    const [errorWhileFetching, setErrorWhileFetching] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('Error while fetching data.')
 
     const verifyIfRevalidationIsNeeded = async () => {
-        const banks = await getBanks({ userId: loggedIn.$id });
         try {
+            const banks = await getBanks({ userId: loggedIn.$id });
             const accounts = await getAccountsH({ banks, userId: loggedIn.$id });
+
+            if(accounts?.revalidationRequired){
+                const revalBanks = await getBanksForRevalidation(banks);
+                setBanksForRevalidation(revalBanks);
+                setTokensRevalidation(true);
+                return;
+            }
+
             if (accounts) {
                 setTokensRevalidation(false);
             }
         } catch (error) {
-            if (error.message === "ITEM_LOGIN_REQUIRED") {
-                const revalBanks = await getBanksForRevalidation(banks);
-                setBanksForRevalidation(revalBanks);
-                setTokensRevalidation(true);
-            } else {
-                console.log('Error en useBankData', error);
-            }
+            console.log('Error en verifyIfRevalidationIsNeeded', error);           
+            setErrorWhileFetching(true)
+            setErrorMessage(error?.message || 'Error while fetching data')
         } finally {
             setFetchingData(false);
         }
@@ -37,6 +45,20 @@ const BaseContent = ({ loggedIn, children }: BaseContentProps) => {
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn]);
+
+
+    if (errorWhileFetching) {
+        return (
+            <div className='home-content'>
+                <header className='home-header'>
+                    <HeaderBoxError
+                        title="Error"
+                        subtext={errorMessage}
+                    />
+                </header>
+            </div>
+        );
+    }
 
     // Mostrar el RevalidationModal si se necesita revalidación
     if (tokensRevalidation && banksForRevalidation) {

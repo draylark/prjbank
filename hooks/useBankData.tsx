@@ -35,7 +35,7 @@ const useBankData = (loggedIn: User, id: string): UseBankDataReturn => {
                 setBanksForRevalidation(revalBanks);
                 setTokensRevalidation(true);
               } else {
-                console.log('Error en useBankData', error);
+                console.log('Error en useBankData original', error);
               }
         } finally {
           setFetchingData(false);

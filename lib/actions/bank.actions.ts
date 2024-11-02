@@ -99,12 +99,14 @@ export const getAccountsH = async ({ banks }: getAccountsPropsH) => {
     return parseStringify({ data: accounts, totalBanks, totalCurrentBalance });
   } catch (error) {
     console.error("An error occurred while getting the accounts:", error);
+
     if (error.response?.data.error_code === 'ITEM_LOGIN_REQUIRED') {
-      // Crear un error personalizado
-      throw new Error("ITEM_LOGIN_REQUIRED");
-    } else {
-      throw error;
+      // Devuelve un objeto de error específico para ITEM_LOGIN_REQUIRED
+      return {
+        revalidationRequired: true
+      };
     }
+    throw error;
   }
 };
 

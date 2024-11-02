@@ -216,6 +216,13 @@
     @apply text-24 lg:text-30 font-semibold text-gray-900;
   }
 
+  .header-box-error-title {
+    @apply text-24 lg:text-30 font-semibold text-red-900;
+  }
+
+  .header-box-error-subtext {
+    @apply text-14 lg:text-16 font-normal text-red-600;
+  }
   .header-box-subtext {
     @apply text-14 lg:text-16 font-normal text-gray-600;
   }

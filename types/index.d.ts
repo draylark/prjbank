@@ -186,11 +186,17 @@ declare interface BankInfoProps {
   type: "full" | "card";
 }
 
+
+
 declare interface HeaderBoxProps {
   type?: "title" | "greeting";
   title: string;
   subtext: string;
   user?: string;
+}
+declare interface HeaderBoxErrorProps {
+  title: string;
+  subtext: string;
 }
 
 declare interface MobileNavProps {

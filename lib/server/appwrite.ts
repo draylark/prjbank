@@ -49,9 +49,6 @@ export async function getLoggedInUser(): Promise<User | null> {
     const result = await account.get();
     
     const user = await getUserInfo({ userId: result.$id });
-
-    console.log("getLoggedInUser user", user)
-
     return parseStringify(user)
   } catch (error) {
     console.log('error', error)
