@@ -14,6 +14,7 @@ import { authFormSchema } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { signIn, signUp } from '@/lib/actions/user.actions'
 import PlaidLink from './PlaidLink'
+import DatePicker from './DatePicker'
 
 const AuthForm = ({ type }: AuthFormProps) => {
 
@@ -63,10 +64,6 @@ const AuthForm = ({ type }: AuthFormProps) => {
                     email: data.email,
                     password: data.password
                 })
-
-
-                
-
 
                 if(response) router.push('/')
             }               
@@ -173,8 +170,8 @@ const AuthForm = ({ type }: AuthFormProps) => {
                                         placeholder="Example: 11101"       
                                     />                                    
                                 </div>
-                                <div className='flex gap-4'>
-                                    <Field                       
+                                <div className='flex gap-4 items-center'>
+                                    <DatePicker                       
                                         form={form}
                                         name="dob"
                                         label="Date of Birth"
@@ -184,7 +181,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
                                         form={form}
                                         name="ssn"
                                         label="SSN"
-                                        placeholder="Example: 4353"       
+                                        placeholder="Example: 244-58-7890"       
                                     />                                    
                                 </div>
 

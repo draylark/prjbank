@@ -197,38 +197,55 @@ export const getTransactionStatus = (date: Date) => {
 };
 
 
+
 export const authFormSchema = (type: string) => z.object({
-    // Both
-    email: z.string().email({ message: "Invalid email address" }),
-    password: z.string()
-      .min(8, { message: "Password must be at least 8 characters long" }) // Longitud mínima
-      .max(100, { message: "Password must be at most 100 characters long" }), // Longitud máxima (opcional)
-  
-    //  "sign-up"
-    firstName: type === 'sign-in' ? z.string().optional() : z.string()
-      .min(1, { message: "First Name is required" })
-      .max(50, { message: "First Name must be at most 50 characters long" }),
-    
-    lastName: type === 'sign-in' ? z.string().optional() : z.string()
-      .min(1, { message: "Last Name is required" })
-      .max(50, { message: "Last Name must be at most 50 characters long" }),
-  
-    address1: type === 'sign-in' ? z.string().optional() : z.string()
-      .min(1, { message: "Address is required" })
-      .max(100, { message: "Address must be at most 100 characters long" }),
-    city: type === 'sign-in' ? z.string().optional() : z.string()
-      .max(50, { message: "City must be at most 50 characters long" }),
-  
-    state: type === 'sign-in' ? z.string().optional() : z.string()
-      .min(2, { message: "State must be at least 2 characters long" }) // Asumiendo que es un código de estado como "NY"
-      .max(2, { message: "State must be at most 2 characters long" }),
-  
-    postalCode: type === 'sign-in' ? z.string().optional() : z.string()
-      .regex(/^\d{5}$/, { message: "Postal Code must be exactly 5 digits" }), // Código postal en formato de 5 dígitos
-  
-    dob: type === 'sign-in' ? z.string().optional() : z.string()
-      .min(5, { message: "Date of Birth must be in the format YYYY-MM-DD" }), // Fecha en formato YYYY-MM-DD
-    
-    ssn: type === 'sign-in' ? z.string().optional() : z.string().min(8, {message: 'SSN must be at least 8 digits'})
+  // Both
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z.string()
+    .min(8, { message: "Password must be at least 8 characters long" })
+    .max(100, { message: "Password must be at most 100 characters long" }),
+
+  // "sign-up"
+  firstName: type === 'sign-in' ? z.string().optional() : z.string()
+    .min(1, { message: "First Name is required" })
+    .max(50, { message: "First Name must be at most 50 characters long" }),
+
+  lastName: type === 'sign-in' ? z.string().optional() : z.string()
+    .min(1, { message: "Last Name is required" })
+    .max(50, { message: "Last Name must be at most 50 characters long" }),
+
+  address1: type === 'sign-in' ? z.string().optional() : z.string()
+    .min(1, { message: "Address is required" })
+    .max(100, { message: "Address must be at most 100 characters long" }),
+
+  city: type === 'sign-in' ? z.string().optional() : z.string()
+    .max(50, { message: "City must be at most 50 characters long" }),
+
+  // Validación del campo state con mensaje de requerido y validación de abreviación
+  state: type === 'sign-in' ? z.string().optional() : z.preprocess(
+    (value) => {
+      if (typeof value === "string") return value.toUpperCase();
+      return value;
+    },
+    z.string()
+      .min(2, { message: "State is required" })
+      .max(2, { message: "State must be at most 2 characters long" })
+      .refine((value) => US_STATES.has(value), { message: "State must be a valid US state abbreviation" })
+  ),
+
+  postalCode: type === 'sign-in' ? z.string().optional() : z.string()
+    .regex(/^\d{5}$/, { message: "Postal Code must be exactly 5 digits" }),
+
+  dob: type === 'sign-in' ? z.string().optional() : z.string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Date of Birth must be in the format YYYY-MM-DD" }),
+
+  ssn: type === 'sign-in' ? z.string().optional() : z.string().min(9, {message: 'SSN must be at least 9 digits'})
 });
-  
+
+const US_STATES = new Set([
+  "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+  "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+  "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+  "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
+]);

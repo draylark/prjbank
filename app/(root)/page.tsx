@@ -19,7 +19,7 @@ const Home = async({ searchParams: { id, page } }: SearchParamProps) => {
 
 
   return (
-    <section className='home'>
+    <section className='home '>
       <div className='home-content'>
         <header className='home-header'>
             <HeaderBox
