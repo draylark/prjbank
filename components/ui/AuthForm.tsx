@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation'
 import { signIn, signUp } from '@/lib/actions/user.actions'
 import PlaidLink from './PlaidLink'
 import DatePicker from './DatePicker'
+import { CredentialsDialog } from './CredentialsDialog'
 
 const AuthForm = ({ type }: AuthFormProps) => {
 
@@ -78,18 +79,25 @@ const AuthForm = ({ type }: AuthFormProps) => {
   return (
     <section className='auth-form'>
         <header className='flex flex-col gap-5 md:gap-8'>
-            <Link 
-                href='/' 
-                className='flex cursor-pointer lfex items-center gap-1'
-            >
-                <Image 
-                    src="/icons/logo.svg"
-                    width={34}
-                    height={34}
-                    alt='PrJBank Logo'
-                />
-                <h1 className='text-26 font-ibm-plex-serif font-bold text-black-1'>PrJBank</h1>
-            </Link>
+            <div className='flex justify-between'>
+                <Link 
+                    href='/' 
+                    className='flex cursor-pointer lfex items-center gap-1'
+                >
+                    <Image 
+                        src="/icons/logo.svg"
+                        width={34}
+                        height={34}
+                        alt='PrJBank Logo'
+                    />
+                    <h1 className='text-26 font-ibm-plex-serif font-bold text-black-1'>PrJBank</h1>
+                </Link>
+
+                {type === 'sign-in' && (
+                    <CredentialsDialog/>
+                )}
+
+            </div>
 
             <div className="flex flex-col gap-1 md:gap-3">
                 <h1 className='text-24 lg:text-36 font-semibold text-gray-900'>
