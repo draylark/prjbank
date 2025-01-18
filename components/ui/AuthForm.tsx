@@ -16,6 +16,7 @@ import { signIn, signUp } from '@/lib/actions/user.actions'
 import PlaidLink from './PlaidLink'
 import DatePicker from './DatePicker'
 import { CredentialsDialog } from './CredentialsDialog'
+// import {DatePicker} from "@heroui/date-picker";
 
 const AuthForm = ({ type }: AuthFormProps) => {
 
@@ -43,6 +44,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
         try {
             //!  Sign Up with AppWrite & create plain link token
             if(type === 'sign-up'){
+
                 const userData = {
                     firstName: data.firstName!,
                     lastName: data.lastName!,
@@ -178,12 +180,14 @@ const AuthForm = ({ type }: AuthFormProps) => {
                                         placeholder="Example: 11101"       
                                     />                                    
                                 </div>
-                                <div className='flex gap-4 items-center'>
+                                <div className='flex gap-4 items-center justify-center'>
                                     <DatePicker                       
                                         form={form}
                                         name="dob"
-                                        label="Date of Birth"
-                                        placeholder="YYYY-MM-DD"       
+                                        // labelPlacement="outside"
+                                        label="Birth date"
+                                        placeholder='Pick a date'
+                                        // className='w-[15rem]'    
                                     />
                                     <Field                       
                                         form={form}

@@ -66,7 +66,12 @@ export const getAccountsH = async ({ banks }: getAccountsPropsH) => {
         const accountsResponse = await plaidClient.accountsGet({
           access_token: bank.accessToken,
         });
+
+ 
+
         const accountData = accountsResponse.data.accounts[0];
+      //  console.log('ACCOUNTSRESPONSE', accountsResponse);
+      //   console.log('ACCOUNTDATA', accountData);
 
         // get institution info from plaid
         const institution = await getInstitution({
@@ -154,7 +159,7 @@ export const getAccounts = async ({ userId }: getAccountsProps) => {
 
     return parseStringify({ data: accounts, totalBanks, totalCurrentBalance });
   } catch (error) {
-    console.error("An error occurred while getting the accounts:", error);
+    console.error("An error occurred while getting the accounts22222222:", error);
     throw error;
   }
 };

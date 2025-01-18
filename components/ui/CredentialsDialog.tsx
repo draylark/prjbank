@@ -24,7 +24,7 @@ export function CredentialsDialog() {
             <Label htmlFor="email" className="text-right">
               Email
             </Label>
-            <Input id="email" value="isc@gmail.com" className="col-span-3 text-black-1"/>
+            <Input id="email" value="test@gmail.com" className="col-span-3 text-black-1"/>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="password" className="text-right">
