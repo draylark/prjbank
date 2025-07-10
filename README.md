@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+<img width="2559" height="1396" alt="Screenshot 2025-07-10 204637" src="https://github.com/user-attachments/assets/9027e9a0-2368-4d74-aed2-fd2ba4f09777" />
 
-First, run the development server:
+# PrJBank 💳
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**PrJBank** is a prototype fintech platform that simulates real-world banking functionalities through seamless integration with third-party financial services. Built with modern web technologies, it demonstrates how to securely connect user accounts, retrieve transaction data, and process transfers in a real-time, user-friendly interface.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🏦 Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🔐 **Authentication** – Secure user login with token-based flow.
+- 🔗 **Third-Party API Integration** – Connects to services like **Plaid**, **Dwolla**, and **Appwrite**.
+- 💼 **Bank Account Linking** – Users can link real or sandbox bank accounts.
+- 📄 **Transaction Viewer** – Retrieve and display account balances and transaction history.
+- 💸 **Transfers Simulation** – Demonstrates the logic and flow of initiating and processing fund transfers.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 🛠 Tech Stack
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Frontend:** Next.js (React), TypeScript
+- **APIs:** Plaid, Dwolla, Appwrite
+- **Backend:** Node.js / Serverless (via API Routes)
+- **Auth:** OAuth2 / JWT
+- **Deployment:** Vercel-ready
